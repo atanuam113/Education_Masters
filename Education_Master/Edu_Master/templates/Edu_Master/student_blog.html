@@ -1,0 +1,92 @@
+
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+<div class="udb">
+    <!-- <div class="udb-sec udb-cour">
+            <h4><img src="{% static 'Edu_Master/images/icon/db2.png' %}" alt="" /> Booking Courses</h4>
+            <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.The point of using Lorem Ipsummaking it look like readable English.</p>
+            <div class="sdb-cours">
+                <ul>
+                {% for object in obj_course_register %}
+                <li>
+                    <a href="#">
+                        <div class="list-mig-like-com com-mar-bot-30">
+                            <div class="list-mig-lc-img"> <img src="{% static 'Edu_Master/images/course/3.jpg' %}" alt=""> <span class="home-list-pop-rat list-mi-pr">Duration:150 Days</span> </div>
+                            <div class="list-mig-lc-con">
+                                <h5>{{object.CR_Course.Course_Name}}</h5>
+                                <p>{{object.CR_Course.Course_level}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>                                
+                {% endfor %}
+                    
+                </ul>
+            </div>
+        </div> -->
+    <div class="udb-sec udb-cour-stat">
+        <h4><img src="{% static 'Edu_Master/images/icon/db3.png' %}" alt="" /> Blog Status <a href="{% url 'student_add_blog' %}" data-activates='top-menu1' class="page-back dropdown-button" style="float: right;"><button>New Blog</button></a></h4>
+        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default
+            model text.The point of using Lorem Ipsummaking it look like readable English.</p>
+        <div class="pro-con-table">
+            <table class="bordered responsive-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Blog Title</th>
+                        <th>Blog Date</th>
+                        <!-- <th>End Date</th> -->
+                        <th>Status</th>
+                        <!-- <th>Edit</th> -->
+                        <th>View</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if obj_blog|length > 0 %}
+                    {% for object in obj_blog %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{object.Blog_Title}}</td>
+                        <td>{{object.Blog_DateTime}}</td>
+                        {% if object.Blog_Status == "Active" %}
+                        <td>
+                            <span class="label label-success">{{object.Blog_Status}}</span>
+                        </td>
+                        {% elif object.Blog_Status == "Hold" %}
+                        <td>
+                            <span class="label label-warning">{{object.Blog_Status}}</span>
+                        </td>
+
+                        {% else %}
+                        <td>
+                            <span class="label label-danger">{{object.slug}}</span>
+                        </td>
+                        {% endif %}
+                        {% if object.Blog_Status == "Active" %}
+                        <td><a href="{% url 'blog_details' object.slug %}" class="pro-edit">view</a></td>
+                        {% elif object.Blog_Status == "Hold" %}
+                        <td class="viewDisable"><a style="cursor: not-allowed;" href="#!"
+                                class="pro-edit">view</a></td>
+                        {% else %}
+                        <td style="cursor: not-allowed;"><a style="cursor: not-allowed;" href="#!"
+                                class="pro-edit">view</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td><b>No record found !</b></td>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

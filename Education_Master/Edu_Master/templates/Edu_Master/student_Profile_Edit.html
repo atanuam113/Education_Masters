@@ -1,0 +1,39 @@
+
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+{% for form in AllContext %}
+
+<div class="udb">
+
+    <div class="udb-sec udb-prof">
+        <h4><img src="{% static 'Edu_Master/images/icon/db1.png' %}" alt="" /> My Profile</h4>
+        <!-- <p>{{item.Student_Bio}}</p> -->
+        <div class="sdb-tabl-com sdb-pro-table">
+            <form method="post" action=""  enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="waves-effect waves-light btn-large waves-input-wrapper"><input
+                                type="submit" value="submit" class="waves-button-input"></i>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

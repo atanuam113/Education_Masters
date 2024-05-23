@@ -1,0 +1,840 @@
+{% extends 'Edu_Master/base.html' %}
+{% load static %}
+{% block Customlink %}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path
+            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+<link href="{% static 'Edu_Master/css/paging.css' %}" rel="stylesheet" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" href="{% static 'Edu_Master/icon/favicon-32x32.png' %}" sizes="32x32">
+<link rel="apple-touch-icon" href="{% static 'Edu_Master/icon/favicon-32x32.png' %}">
+<link rel="apple-touch-icon" sizes="72x72" href="{% static 'Edu_Master/icon/apple-touch-icon-72x72.png' %}">
+<link rel="apple-touch-icon" sizes="114x114" href="{% static 'Edu_Master/icon/apple-touch-icon-114x114.png' %}">
+<link rel="apple-touch-icon" sizes="144x144" href="{% static 'Edu_Master/icon/apple-touch-icon-144x144.png' %}">
+
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/bootstrap-reboot.min.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/bootstrap-grid.min.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/jquery.mCustomScrollbar.min.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/nouislider.min.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/ionicons.min.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/plyr.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/photoswipe.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/default-skin.css' %}">
+<link rel="stylesheet" href="{% static 'Edu_Master/css_course/main.css' %}">
+
+<script src="{% static 'Edu_Master/js_course/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/owl.carousel.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/jquery.mousewheel.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/jquery.mCustomScrollbar.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/wNumb.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/nouislider.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/plyr.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/jquery.morelines.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/photoswipe.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/photoswipe-ui-default.min.js' %}"></script>
+<script src="{% static 'Edu_Master/js_course/main.js' %}"></script>
+{% endblock %}
+<!-- Page Title -->
+{% block title%} All Course {% endblock %}
+{% block body %}
+{% load static %}
+
+
+
+<!--SECTION ALL COURSE START-->
+<section class="pop-cour">
+    <div class="container com-sp pad-bot-70">
+        <!-- Alert section start-->
+        <div class="d-flex justify-content-center">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                {% if message.tags == "error"%}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill" />
+                    </svg> <strong>warning!</strong>{{ message }}
+
+                    <button type="button" class="close" id="btnalert" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="15" height="15" role="img" aria-label="Success:">
+                        <use xlink:href="#check-circle-fill" />
+                    </svg> <strong>Success!</strong>{{ message }}
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" id="btnalert">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <!-- Alert section end-->
+
+        <div class="row">
+            <div class="con-title">
+                <h2>All <span>Courses</span></h2>
+                <p></p>
+            </div>
+        </div>
+        
+        
+    </div>
+
+</section>
+<!-- SECTION END -->
+
+<!-- details -->
+<section class="section details">
+    <!-- details background -->
+    <div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
+    <!-- end details background -->
+
+    <!-- details content -->
+    <div class="container">
+        <div class="row">
+            <!-- title -->
+            <div class="col-12">
+                <h1 class="details__title">I Dream in Another Language</h1>
+            </div>
+            <!-- end title -->
+
+            <!-- content -->
+            <div class="col-10">
+                <div class="card card--details card--series">
+                    <div class="row">
+                        <!-- card cover -->
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                            <div class="card__cover">
+                                <img src="{% static 'Edu_Master/img/covers/cover.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <!-- end card cover -->
+
+                        <!-- card content -->
+                        <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+                            <div class="">
+                                <div class="card__wrap">
+                                    <span class="card__rate"><i class="icon ion-ios-star"></i>{{objCourseDtls.Course_Rating}}</span>
+
+                                    <ul class="card__list">
+                                        <li>HD</li>
+                                        <li>16+</li>
+                                    </ul>
+                                </div>
+
+                                <ul class="">
+                                    <li><span><b> Course Name:</b></span> <a href="#">{{objCourseDtls.Course_Name}}</a>
+                                    </li>
+                                    <li><span><b> Start Date:</b></span> {{objCourseDtls.Start_Date}}</li>
+                                    <li><span><b>Expire Date:</b></span> {{objCourseDtls.End_Date}}</li>
+                                    <li><span><b>Instructor:</b></span> {{objCourseDtls.Course_Instructor}}</li>
+                                    <li><span><b>Course Level:</b></span> {{objCourseDtls.Course_level}} </li>
+                                </ul>
+
+                                <div class="card__description--details">
+                                     {{objCourseDtls.Course_Desc}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end card content -->
+                    </div>
+                </div>
+            </div>
+            <!-- end content -->
+
+            <!-- player -->
+            
+            <div class="col-12 col-xl-6">
+                {% for object in objCourseModule %}
+                <video controls crossorigin playsinline poster="{% static 'Edu_Master/images/ev-in-bg1.JPG' %}" id="player">
+                    <!-- Video files -->
+                    <source src="{{ object.module_Content.url }}" type="video/mp4" size="576">
+                    <source src="{{ object.module_Content.url }}" type="video/mp4" size="576">
+                     <source src="{{ object.module_Content.url }}" type="video/mp4" size="720">
+                    <source src="{{ object.module_Content.url }}" type="video/mp4" size="1080">
+                    <source src="{{ object.module_Content.url }}" type="video/mp4" size="1440">
+
+                    <!-- Caption files -->
+                    <track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+                        default>
+                    <track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
+
+                    <!-- Fallback for browsers that don't support the <video> element -->
+                    <a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a>
+                </video>
+                {% endfor %}
+            </div>
+            
+            <!-- end player -->
+
+            <!-- accordion -->
+            <div class="col-12 col-xl-6">
+                <div class="accordion" id="accordion">
+                    <div class="accordion__card">
+                        <div class="card-header" id="headingOne">
+                            <button type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <span>Season: 1</span>
+                                <span>22 Episodes from Nov, 2004 until May, 2005</span>
+                            </button>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="accordion__list">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Air Date</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>Pilot</td>
+                                            <td>Tuesday, November 16th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>Paternity</td>
+                                            <td>Tuesday, November 23rd, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Occam's Razor</td>
+                                            <td>Tuesday, November 30th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>4</th>
+                                            <td>Maternity</td>
+                                            <td>Tuesday, December 7th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>5</th>
+                                            <td>Damned If You Do</td>
+                                            <td>Tuesday, December 14th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>6</th>
+                                            <td>The Socratic Method</td>
+                                            <td>Tuesday, December 21st, 2004</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion__card">
+                        <div class="card-header" id="headingTwo">
+                            <button class="collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <span>Season: 2</span>
+                                <span>24 Episodes from Sep, 2005 until May, 2006</span>
+                            </button>
+                        </div>
+
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="accordion__list">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Air Date</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>Pilot</td>
+                                            <td>Tuesday, November 16th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>Paternity</td>
+                                            <td>Tuesday, November 23rd, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Occam's Razor</td>
+                                            <td>Tuesday, November 30th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>4</th>
+                                            <td>Maternity</td>
+                                            <td>Tuesday, December 7th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>5</th>
+                                            <td>Damned If You Do</td>
+                                            <td>Tuesday, December 14th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>6</th>
+                                            <td>The Socratic Method</td>
+                                            <td>Tuesday, December 21st, 2004</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion__card">
+                        <div class="card-header" id="headingThree">
+                            <button class="collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <span>Season: 3</span>
+                                <span>24 Episodes from Sep, 2006 until May, 2007</span>
+                            </button>
+                        </div>
+
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="accordion__list">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Air Date</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>Pilot</td>
+                                            <td>Tuesday, November 16th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>Paternity</td>
+                                            <td>Tuesday, November 23rd, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Occam's Razor</td>
+                                            <td>Tuesday, November 30th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>4</th>
+                                            <td>Maternity</td>
+                                            <td>Tuesday, December 7th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>5</th>
+                                            <td>Damned If You Do</td>
+                                            <td>Tuesday, December 14th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>6</th>
+                                            <td>The Socratic Method</td>
+                                            <td>Tuesday, December 21st, 2004</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion__card">
+                        <div class="card-header" id="headingFour">
+                            <button class="collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <span>Season: 4</span>
+                                <span>16 Episodes from Sep, 2007 until May, 2008</span>
+                            </button>
+                        </div>
+
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="card-body">
+                                <table class="accordion__list">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Air Date</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>Pilot</td>
+                                            <td>Tuesday, November 16th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>Paternity</td>
+                                            <td>Tuesday, November 23rd, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Occam's Razor</td>
+                                            <td>Tuesday, November 30th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>4</th>
+                                            <td>Maternity</td>
+                                            <td>Tuesday, December 7th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>5</th>
+                                            <td>Damned If You Do</td>
+                                            <td>Tuesday, December 14th, 2004</td>
+                                        </tr>
+                                        <tr>
+                                            <th>6</th>
+                                            <td>The Socratic Method</td>
+                                            <td>Tuesday, December 21st, 2004</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end accordion -->
+
+            
+        </div>
+    </div>
+    <!-- end details content -->
+</section>
+<!-- end details -->
+
+<!-- content -->
+<section class="content">
+    <div class="content__head">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- content title -->
+                    <h2 class="content__title">Discover</h2>
+                    <!-- end content title -->
+
+                    <!-- content tabs nav -->
+                    <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Comments</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Reviews</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Photos</a>
+                        </li>
+                    </ul>
+                    <!-- end content tabs nav -->
+
+                    <!-- content mobile tabs nav -->
+                    <div class="content__mobile-tabs" id="content__mobile-tabs">
+                        <div class="content__mobile-tabs-btn dropdown-toggle" role="navigation" id="mobile-tabs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <input type="button" value="Comments">
+                            <span></span>
+                        </div>
+
+                        <div class="content__mobile-tabs-menu dropdown-menu" aria-labelledby="mobile-tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Comments</a></li>
+
+                                <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Reviews</a></li>
+
+                                <li class="nav-item"><a class="nav-link" id="3-tab" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Photos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- end content mobile tabs nav -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xl-8">
+                <!-- content tabs -->
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+                        <div class="row">
+                            <!-- comments -->
+                            <div class="col-12">
+                                <div class="comments">
+                                    <ul class="comments__list">
+                                        <li class="comments__item">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="comments__name">John Doe</span>
+                                                <span class="comments__time">30.08.2018, 17:53</span>
+                                            </div>
+                                            <p class="comments__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                            <div class="comments__actions">
+                                                <div class="comments__rate">
+                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>12</button>
+
+                                                    <button type="button">7<i class="icon ion-md-thumbs-down"></i></button>
+                                                </div>
+
+                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
+                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
+                                            </div>
+                                        </li>
+
+                                        <li class="comments__item comments__item--answer">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="comments__name">John Doe</span>
+                                                <span class="comments__time">24.08.2018, 16:41</span>
+                                            </div>
+                                            <p class="comments__text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="comments__actions">
+                                                <div class="comments__rate">
+                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>8</button>
+
+                                                    <button type="button">3<i class="icon ion-md-thumbs-down"></i></button>
+                                                </div>
+
+                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
+                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
+                                            </div>
+                                        </li>
+
+                                        <li class="comments__item comments__item--quote">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="comments__name">John Doe</span>
+                                                <span class="comments__time">11.08.2018, 11:11</span>
+                                            </div>
+                                            <p class="comments__text"><span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</span>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                            <div class="comments__actions">
+                                                <div class="comments__rate">
+                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>11</button>
+
+                                                    <button type="button">1<i class="icon ion-md-thumbs-down"></i></button>
+                                                </div>
+
+                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
+                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
+                                            </div>
+                                        </li>
+
+                                        <li class="comments__item">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="comments__name">John Doe</span>
+                                                <span class="comments__time">07.08.2018, 14:33</span>
+                                            </div>
+                                            <p class="comments__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                            <div class="comments__actions">
+                                                <div class="comments__rate">
+                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>99</button>
+
+                                                    <button type="button">35<i class="icon ion-md-thumbs-down"></i></button>
+                                                </div>
+
+                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
+                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
+                                            </div>
+                                        </li>
+
+                                        <li class="comments__item">
+                                            <div class="comments__autor">
+                                                <img class="comments__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="comments__name">John Doe</span>
+                                                <span class="comments__time">02.08.2018, 15:24</span>
+                                            </div>
+                                            <p class="comments__text">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                                            <div class="comments__actions">
+                                                <div class="comments__rate">
+                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>74</button>
+
+                                                    <button type="button">13<i class="icon ion-md-thumbs-down"></i></button>
+                                                </div>
+                                                
+                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
+                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <form action="#" class="form">
+                                        <textarea id="text" name="text" class="form__textarea" placeholder="Add comment"></textarea>
+                                        <button type="button" class="form__btn">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- end comments -->
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+                        <div class="row">
+                            <!-- reviews -->
+                            <div class="col-12">
+                                <div class="reviews">
+                                    <ul class="reviews__list">
+                                        <li class="reviews__item">
+                                            <div class="reviews__autor">
+                                                <img class="reviews__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
+                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
+
+                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>8.4</span>
+                                            </div>
+                                            <p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                        </li>
+
+                                        <li class="reviews__item">
+                                            <div class="reviews__autor">
+                                                <img class="reviews__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
+                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
+
+                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>9.0</span>
+                                            </div>
+                                            <p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                        </li>
+
+                                        <li class="reviews__item">
+                                            <div class="reviews__autor">
+                                                <img class="reviews__avatar" src="{% static 'Edu_Master/img/user.png' %}" alt="">
+                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
+                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
+
+                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>7.5</span>
+                                            </div>
+                                            <p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                        </li>
+                                    </ul>
+
+                                    <form action="#" class="form">
+                                        <input type="text" class="form__input" placeholder="Title">
+                                        <textarea class="form__textarea" placeholder="Review"></textarea>
+                                        <div class="form__slider">
+                                            <div class="form__slider-rating" id="slider__rating"></div>
+                                            <div class="form__slider-value" id="form__slider-value"></div>
+                                        </div>
+                                        <button type="button" class="form__btn">Send</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- end reviews -->
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="3-tab">
+                        <!-- project gallery -->
+                        <div class="gallery" itemscope>
+                            <div class="row">
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{% static 'Edu_Master/img/gallery/project-1.jpg' %}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{% static 'Edu_Master/img/gallery/project-1.jpg' %}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 1</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{% static 'Edu_Master/img/gallery/project-2.jpg' %}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{% static 'Edu_Master/img/gallery/project-2.jpg' %}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 2</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{% static 'Edu_Master/img/gallery/project-3.jpg' %}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{% static 'Edu_Master/img/gallery/project-3.jpg' %}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 3</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{% static 'Edu_Master/img/gallery/project-4.jpg' %}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{% static 'Edu_Master/img/gallery/project-4.jpg' %}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 4</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{% static 'Edu_Master/img/gallery/project-5.jpg' %}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{% static 'Edu_Master/img/gallery/project-5.jpg' %}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 5</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+
+                                <!-- gallery item -->
+                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
+                                    <a href="{% static 'Edu_Master/img/gallery/project-6.jpg' %}" itemprop="contentUrl" data-size="1920x1280">
+                                        <img src="{% static 'Edu_Master/img/gallery/project-6.jpg' %}" itemprop="thumbnail" alt="Image description" />
+                                    </a>
+                                    <figcaption itemprop="caption description">Some image caption 6</figcaption>
+                                </figure>
+                                <!-- end gallery item -->
+                            </div>
+                        </div>
+                        <!-- end project gallery -->
+                    </div>
+                </div>
+                <!-- end content tabs -->
+            </div>
+
+            <!-- sidebar -->
+            <!-- <div class="col-12 col-lg-4 col-xl-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="section__title section__title--sidebar">You may also like...</h2>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-lg-6">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-lg-6">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover2.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-lg-6">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover3.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Whitney</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Romance</a>
+                                    <a href="#">Drama</a>
+                                    <a href="#">Music</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-lg-6">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover4.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                    <a href="#">Drama</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-lg-6">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover5.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Action</a>
+                                    <a href="#">Triler</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6 col-sm-4 col-lg-6">
+                        <div class="card">
+                            <div class="card__cover">
+                                <img src="img/covers/cover6.jpg" alt="">
+                                <a href="#" class="card__play">
+                                    <i class="icon ion-ios-play"></i>
+                                </a>
+                            </div>
+                            <div class="card__content">
+                                <h3 class="card__title"><a href="#">Benched</a></h3>
+                                <span class="card__category">
+                                    <a href="#">Comedy</a>
+                                </span>
+                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- end sidebar -->
+        </div>
+    </div>
+</section>
+<!-- end content -->
+
+{% endblock %}

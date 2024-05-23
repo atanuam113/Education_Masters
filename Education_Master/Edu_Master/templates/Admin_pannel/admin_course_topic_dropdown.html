@@ -1,0 +1,6 @@
+
+<select name="student" id="student">
+    {% for object in objCourseTopic %}
+        <option value="{{ object.Module_Topic }}">{{ object.Module_Topic }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,79 @@
+
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+<div class="udb">
+    <div class="udb-sec udb-time">
+        <h4><img src="{% static 'Edu_Master/images/icon/db4.png' %}" alt="" /> Class Time Line</h4>
+        <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+        <div class="tour_head1 udb-time-line days">
+            {% regroup obj_course_table by Class_Date as course_table_list %}
+            <ul>
+                {% if obj_course_table|length > 0 %}
+                {% for course_table in course_table_list %}
+                <li class="l-info-pack-plac"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <div class="sdb-cl-tim">
+                        <div class="sdb-cl-day">
+                            {% if today|date:"M d, Y" == course_table.grouper|date:"M d, Y" %}
+                            <h5>Today</h5>
+                            {% else %}
+                            <h5>{{ course_table.grouper|date:'l' }}</h5>
+                            {% endif %}
+                            <span>{{ course_table.grouper }}</span>
+                        </div>
+                        <div class="sdb-cl-class">
+                            <ul>
+                                {% for item in course_table.list %}
+                                {% load humanize %}
+                                <li>
+                                    <div class="sdb-cl-class-tim tooltipped" data-position="top" data-delay="50" data-tooltip="Class timing">
+                                        <span>{{ item.Class_Start_Time }}</span>
+                                        <span>{{ item.Class_End_Time }}</span>
+                                    </div>
+                                    <div class="sdb-cl-class-name tooltipped" data-position="top" data-delay="50" data-tooltip="Topic & Course">
+                                        {% if now|naturaltime > item.Class_Date|naturaltime %}
+                                        <h5>{{ item.Class_Topic }} <span><a href="{{ item.Class_Link }}">Join class</a></span></h5>
+                                        {% endif %}
+                                        <span class="sdn-hall-na">{{ now|naturaltime  }} - {{item.Class_Date|naturaltime}}</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                                <!-- <li>
+                                    <div class="sdb-cl-class-tim">
+                                        <span>10:15 am</span>
+                                        <span>11:00 am</span>
+                                    </div>
+                                    <div class="sdb-cl-class-name">
+                                        <h5>Mechanical Design Classes <span>Stephanie</span></h5>
+                                        <span class="sdn-hall-na">Apj Hall 112</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="sdb-cl-class-tim">
+                                        <span>11:00 am</span>
+                                        <span>11:45 am</span>
+                                    </div>
+                                    <div class="sdb-cl-class-name sdb-cl-class-name-lev">
+                                        <h5>Board Exam Training Classes <span>Matthew</span></h5>
+                                        <span class="sdn-hall-na">Apj Hall 112</span>
+                                    </div>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% else %}
+                <td><b>No record found !</b></td>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student Login History {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+<div class="udb">
+    
+    <div class="udb-sec udb-cour-stat">
+        <h4><img src="{% static 'Edu_Master/images/icon/db3.png' %}" alt="" /> Login History </h4>
+        <!-- <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default
+            model text.The point of using Lorem Ipsummaking it look like readable English.</p> -->
+        <div class="pro-con-table">
+            <table class="bordered responsive-table">
+                <thead>
+                    <tr>
+                        <th>Last Login Time</th>
+                        <th>Logout Out</th>
+                        <th>View</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if student_login_log|length > 0 %}
+                        {% for item in student_login_log %}
+                            <tr>
+                                <td>{{item.LLog_Last_Login_Time}}</td>
+                                <td>{{item.LLog_LogOut_Time}}</td>
+                                <td><a href="{% url 'admin_teacher_details' item.pk  %}" class="ad-st-view">View</a></td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                    <td><b>No record found !</b></td>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pg-pagina">
+            <ul class="pagination">
+                {% if student_login_log.has_other_pages %}
+                {% if student_login_log.has_previous %}
+                <li><a href="?page={{ student_login_log.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                {% else %}
+                <li class="disabled"><a href="#!"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                {% endif %}
+                {% for i in student_login_log.paginator.page_range %}
+                {% if student_login_log.number == i %}
+                <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% else %}
+                <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <!-- <li class="active"><a href="#!">1</a></li>
+                <li class="waves-effect"><a href="#!">2</a></li>
+                <li class="waves-effect"><a href="#!">3</a></li>
+                <li class="waves-effect"><a href="#!">4</a></li>
+                <li class="waves-effect"><a href="#!">5</a></li> -->
+                {% if student_login_log.has_next %}
+                <li class="waves-effect"><a href="?page={{ student_login_log.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                {% else %}
+                <li class="disabled"><a href="!#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                {% endif %}
+                {% endif %}
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

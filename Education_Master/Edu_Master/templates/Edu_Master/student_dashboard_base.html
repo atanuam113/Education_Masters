@@ -1,0 +1,88 @@
+{% extends 'Edu_Master/base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block body %}
+{% load static %}
+
+<!--SECTION START-->
+<section>
+
+    <div class="pro-cover">
+    </div>
+    <div class="pro-menu">
+        <div class="container">
+            <div class="col-md-9 col-md-offset-3">
+                <ul>
+                    <li><a href="{% url 'student_dashboard' %}" class="pro-act">My Dashboard</a></li>
+                    <li><a href="{% url 'student_profile' %}">Profile</a></li>
+                    <li><a href="{% url 'student_course' %}">Courses</a></li>
+                    <li><a href="{% url 'student_exam' %}">Exams</a></li>
+                    <li><a href="{% url 'student_class_time' %}">Time Line</a></li>                    
+                    <li><a href="{% url 'student_notification' %}">Notifications</a></li>
+                    <li><a href="{% url 'student_blog' %}">My Blogs</a></li>
+                    <li><a href="{% url 'student_login_history' %}">Login History</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="stu-db">
+        <div class="container pg-inn">
+            <div class="col-md-3">
+                <div class="pro-user">
+                    <img src="/media/{{item.Student_Profile_Pic}}" alt="user">
+                </div>
+                <div class="pro-user-bio">
+                    <ul>
+                        <li>
+                            <h4>{{item.Student_Name}}</h4>
+                        </li>
+                        <li>Student Id: {{item.Student_ID}}</li>
+                        <li><a href="{{item.Student_Github}}"><i class="fa fa-github"></i> Github: {{item.Student_Github}}</a></li>
+                        <li><a href="{{item.Student_Linkedin}}"><i class="fa fa-linkedin"></i> linkedin: {{item.Student_Linkedin}}</a></li>
+                        <li><a href="{{item.Student_Twitter}}"><i class="fa fa-twitter"></i> Twitter: {{item.Student_Twitter}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <!-- Alert section start-->
+                <div class="d-flex justify-content-center">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        {% if message.tags == "error"%}
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                                <use xlink:href="#exclamation-triangle-fill" />
+                            </svg> <strong>warning!</strong>{{ message }}
+
+                            <button type="button" class="close" id="btnalert" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-success d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="15" height="15" role="img" aria-label="Success:">
+                                <use xlink:href="#check-circle-fill" />
+                            </svg> <strong>Success!</strong>{{ message }}
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true" id="btnalert">&times;</span>
+                            </button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- Alert section end-->
+                {% block StudentDashboard %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+<!--SECTION END-->
+
+{% endblock %}

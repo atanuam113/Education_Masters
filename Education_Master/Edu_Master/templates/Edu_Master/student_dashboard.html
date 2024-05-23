@@ -1,0 +1,142 @@
+
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+<div class="udb">                    
+    <div class="udb-sec udb-prof">
+        <h4><img src="{% static 'Edu_Master/images/icon/db1.png' %}" alt="" /> My Profile</h4>
+        <p>{{item.Student_Bio}}</p>
+    </div>
+    <div class="udb-sec udb-cour">
+        <h4><img src="{% static 'Edu_Master/images/icon/db2.png' %}" alt="" /> Booking Courses</h4>
+        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.The point of using Lorem Ipsummaking it look like readable English.</p>
+        <div class="sdb-cours">
+            <ul>
+                {% if obj_course_register|length > 0 %}
+                {% for object in obj_course_register %}
+                <li>
+                    <a href="#">
+                        <div class="list-mig-like-com com-mar-bot-30">
+                            <div class="list-mig-lc-img"> <img src="{% static 'Edu_Master/images/course/3.jpg' %}" alt=""> <span class="home-list-pop-rat list-mi-pr">Duration:150 Days</span> </div>
+                            <div class="list-mig-lc-con">
+                                <h5>{{object.CR_Course.Course_Name}}</h5>
+                                <p>{{object.CR_Course.Course_level}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>                                
+                {% endfor %}
+                {% else %}
+                <td><b>No record found !</b></td>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="udb-sec udb-cour-stat">
+        <h4><img src="{% static 'Edu_Master/images/icon/db3.png' %}" alt="" /> Course Status</h4>
+        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.The point of using Lorem Ipsummaking it look like readable English.</p>
+        <div class="pro-con-table">
+            <table class="bordered responsive-table">
+                <thead>                                    
+                    <tr>
+                        <th>No</th>
+                        <th>Course Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <!-- <th>Edit</th> -->
+                        <th>View</th>
+                    </tr>
+                    
+                </thead>
+
+                <tbody>
+                    {% if obj_course_register|length > 0 %}
+                    {% for object in obj_course_register %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{object.CR_Course.Course_Name}}</td>
+                        <td>{{object.CR_Start_Date}}</td>
+                        <td>{{object.CR_End_Date}}</td>
+                        {% if object.CR_Status == "Active" %}
+                        <td>
+                            <span class="label label-success">{{object.CR_Status}}</span>
+                        </td>
+                        {% elif object.CR_Status == "Hold" %}
+                        <td>
+                            <span class="label label-warning">{{object.CR_Status}}</span>
+                        </td>
+
+                        {% else %}
+                        <td>
+                            <span class="label label-danger">{{object.CR_Status}}</span>
+                        </td>
+                        {% endif %}
+                        <!-- <td><span class="pro-user-act">active</span></td> -->
+                        <!-- <td><a href="sdb-course-edit.html" class="pro-edit">edit</a></td> -->
+                        {% if object.CR_Status == "Active" %}
+                        <td><a href="{% url 'Subcribed_course' object.CR_Course.pk %}" class="pro-edit">view</a></td>
+                        {% elif object.CR_Status == "Hold" %}
+                        <td class="viewDisable"><a style="cursor: not-allowed;" href="#!" class="pro-edit">view</a></td>
+                        {% else %}
+                        <td style="cursor: not-allowed;"><a style="cursor: not-allowed;" href="#!" class="pro-edit">view</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td><b>No record found !</b></td>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="udb-sec udb-time">
+        <h4><img src="{% static 'Edu_Master/images/icon/db4.png' %}" alt="" /> Class Time Line</h4>
+        <p>The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+        <div class="tour_head1 udb-time-line days">
+            {% regroup obj_course_table by Class_Date as course_table_list %}
+            <ul>
+                {% if obj_course_table|length > 0 %}
+                {% for course_table in course_table_list %}
+                <li class="l-info-pack-plac"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <div class="sdb-cl-tim">
+                        <div class="sdb-cl-day">
+                            {% if today|date:"M d, Y" == course_table.grouper|date:"M d, Y" %}
+                            <h5>Today</h5>
+                            {% else %}
+                            <h5>{{ course_table.grouper|date:'l' }}</h5>
+                            {% endif %}
+                            <span>{{ course_table.grouper }}</span>
+                        </div>
+                        <div class="sdb-cl-class">
+                            <ul>
+                                {% for item in course_table.list %}
+                                <li>
+                                    <div class="sdb-cl-class-tim tooltipped" data-position="top" data-delay="50" data-tooltip="Class timing">
+                                        <span>{{ item.Class_Start_Time }}</span>
+                                        <span>{{ item.Class_End_Time }}</span>
+                                    </div>
+                                    <div class="sdb-cl-class-name tooltipped" data-position="top" data-delay="50" data-tooltip="Topic & Course">
+                                        <h5>{{ item.Class_Topic }} <span><a href="{{ item.Class_Link }}">Join class</a></span></h5>
+                                        <span class="sdn-hall-na">{{ item.Course_Name.Course_Name }}</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                {% else %}
+                <td><b>No record found !</b></td>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

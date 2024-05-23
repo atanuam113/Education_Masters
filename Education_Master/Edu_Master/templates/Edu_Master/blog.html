@@ -1,0 +1,118 @@
+{% extends 'Edu_Master/base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Blog {% endblock %}
+{% block body %}
+{% load static %}
+
+ <!--SECTION START-->
+ <section>
+    <div class="container com-sp">
+        <!-- Alert section start-->
+        <div class="d-flex justify-content-center">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                {% if message.tags == "error"%}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill" />
+                    </svg> <strong>warning!</strong>{{ message }}
+
+                    <button type="button" class="close" id="btnalert" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="15" height="15" role="img" aria-label="Success:">
+                        <use xlink:href="#check-circle-fill" />
+                    </svg> <strong>Success!</strong>{{ message }}
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" id="btnalert">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <!-- Alert section end-->
+        <div class="row">
+            <div class="cor about-sp">
+                <div class="ed-about-tit">
+                    <div class="con-title">
+                        <h2>Blog <span> Posts</span></h2>
+                        <p></p>
+                    </div>
+                    <div>
+                        <div class="ho-event pg-eve-main pg-blog">
+                            <ul>
+                                {% for item in obj_all_blog %}
+                                <li>
+                                    <div class="ho-ev-date pg-eve-date"><span>{{item.Blog_DateTime |date:"d"}}</span><span>{{item.Blog_DateTime |date:"M"}},{{item.Blog_DateTime |date:"Y"}}</span>
+                                    </div>
+                                    <div class="pg-eve-desc pg-blog-desc">
+                                        <a href="{% url 'blog_details' item.slug %}">
+                                            <h4>{{item.Blog_Title}}</h4>
+                                        </a>
+                                        <img src="{% static 'Edu_Master/images/blog/6.jpg' %}" alt="">
+                                        <div class="share-btn blog-share-btn">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-facebook fb1"></i> Share On Facebook</a>
+                                                </li>
+                                                <li><a href="#"><i class="fa fa-twitter tw1"></i> Share On Twitter</a>
+                                                </li>
+                                                <li><a href="#"><i class="fa fa-google-plus gp1"></i> Share On Google Plus</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p>{{item.Blog_Description|slice:"0:180"}}.....</p>
+                                        <span>9:15 am – 5:00 pm</span>
+                                    </div>
+                                    <div class="pg-eve-reg pg-blog-reg">
+                                        <a href="{% url 'blog_details' item.slug %}">Read more</a>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pg-pagina">
+                        <ul class="pagination">
+                            {% if obj_all_blog.has_other_pages %}
+                            {% if obj_all_blog.has_previous %}
+                            <li><a href="?page={{ obj_all_blog.previous_page_number }}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a href="#!"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                            {% for i in obj_all_blog.paginator.page_range %}
+                            {% if obj_all_blog.number == i %}
+                            <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% else %}
+                            <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            <!-- <li class="active"><a href="#!">1</a></li>
+                            <li class="waves-effect"><a href="#!">2</a></li>
+                            <li class="waves-effect"><a href="#!">3</a></li>
+                            <li class="waves-effect"><a href="#!">4</a></li>
+                            <li class="waves-effect"><a href="#!">5</a></li> -->
+                            {% if obj_all_blog.has_next %}
+                            <li class="waves-effect"><a href="?page={{ obj_all_blog.next_page_number }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a href="!#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                            {% endif %}
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--SECTION END-->
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+<div class="udb">
+
+    <div class="udb-sec udb-prof">
+        <h4><img src="{% static 'Edu_Master/images/icon/db1.png' %}" alt="" /> My Profile</h4>
+        <p>{{item.Student_Bio}}</p>
+        <div class="sdb-tabl-com sdb-pro-table">
+            <table class="responsive-table bordered">
+                <tbody>
+                    <tr>
+                        <td>Student Name</td>
+                        <td>:</td>
+                        <td>{{item.Student_Name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Student Id</td>
+                        <td>:</td>
+                        <td>{{item.Student_ID}}</td>
+                    </tr>
+                    <tr>
+                        <td>Eamil</td>
+                        <td>:</td>
+                        <td>{{item.Student_Email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>:</td>
+                        <td>{{item.Student_Phone}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date of birth</td>
+                        <td>:</td>
+                        <td>{{item.Student_DOB}}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>:</td>
+                        <td>{{item.Student_Address}}</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>:</td>
+                        <td><span class="db-done">{{item.Student_Status}}</span> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="sdb-bot-edit">                            
+                <a href="{% url 'student_Profile_Edit' item.slug %}" class="waves-effect waves-light btn-large sdb-btn sdb-btn-edit"><i class="fa fa-pencil"></i> Edit my profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

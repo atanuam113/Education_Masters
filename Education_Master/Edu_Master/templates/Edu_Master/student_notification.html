@@ -1,0 +1,91 @@
+
+{% extends 'Edu_Master/student_dashboard_base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Student dashboard {% endblock %}
+{% block StudentDashboard %}
+{% load static %}
+
+<div class="udb">
+    <!-- <div class="udb-sec udb-cour">
+            <h4><img src="{% static 'Edu_Master/images/icon/db2.png' %}" alt="" /> Booking Courses</h4>
+            <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.The point of using Lorem Ipsummaking it look like readable English.</p>
+            <div class="sdb-cours">
+                <ul>
+                {% for object in obj_course_register %}
+                <li>
+                    <a href="#">
+                        <div class="list-mig-like-com com-mar-bot-30">
+                            <div class="list-mig-lc-img"> <img src="{% static 'Edu_Master/images/course/3.jpg' %}" alt=""> <span class="home-list-pop-rat list-mi-pr">Duration:150 Days</span> </div>
+                            <div class="list-mig-lc-con">
+                                <h5>{{object.CR_Course.Course_Name}}</h5>
+                                <p>{{object.CR_Course.Course_level}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>                                
+                {% endfor %}
+                    
+                </ul>
+            </div>
+        </div> -->
+    <div class="udb-sec udb-cour-stat">
+        <h4><img src="{% static 'Edu_Master/images/icon/db3.png' %}" alt="" /> Notification</h4>
+        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default
+            model text.The point of using Lorem Ipsummaking it look like readable English.</p>
+        <div class="pro-con-table">
+            <table class="bordered responsive-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Sender</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <!-- <th>Edit</th> -->
+                        <th>View</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if obj_Student_Mail|length > 0 %}
+                    {% for object in obj_Student_Mail %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{object.Email_Sender}}</td>
+                        <td>{{object.Email_subject}}</td>
+                        {% if object.Email_Delivery_Status == "Delivered" %}
+                        <td>
+                            <span class="label label-success">{{object.Email_Delivery_Status}}</span>
+                        </td>
+                        {% elif object.Email_Delivery_Status == "Hold" %}
+                        <td>
+                            <span class="label label-warning">{{object.Email_Delivery_Status}}</span>
+                        </td>
+
+                        {% else %}
+                        <td>
+                            <span class="label label-danger">{{object.slug}}</span>
+                        </td>
+                        {% endif %}
+                        {% if object.Email_Delivery_Status == "Delivered" %}
+                        <td><a href="{% url 'student_notification_detail' object.pk %}" class="pro-edit">view</a></td>
+                        {% elif object.Email_Delivery_Status == "Hold" %}
+                        <td class="viewDisable"><a style="cursor: not-allowed;" href="#!"
+                                class="pro-edit">view</a></td>
+                        {% else %}
+                        <td style="cursor: not-allowed;"><a style="cursor: not-allowed;" href="#!"
+                                class="pro-edit">view</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <td><b>No record found !</b></td>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

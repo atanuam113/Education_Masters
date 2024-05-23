@@ -1,0 +1,120 @@
+{% extends 'Admin_pannel/base.html' %}
+{% load static %}
+<!-- Page Title -->
+{% block title%} Admin Student Blog {% endblock %}
+{% block body %}
+{% load static %}
+
+
+<!--== BODY INNER CONTAINER ==-->
+<div class="sb2-2">
+    <!--== breadcrumbs ==-->
+    <div class="sb2-2-2">
+        <ul>
+            <li><a href="{% url 'admin_dashboard1' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            </li>
+            <li class="active-bre"><a href="">Student Blog</a>
+            </li>
+            <li class="page-back"><a href="javascript:history.go(-1)"><i class="fa fa-backward" aria-hidden="true"></i> Back</a>
+            </li>
+        </ul>
+    </div>
+
+    <!--== User Details ==-->
+    <div class="sb2-2-3">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Alert section start-->
+                <div class="d-flex justify-content-center">
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                        {% if message.tags == "error"%}
+                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                                <use xlink:href="#exclamation-triangle-fill" />
+                            </svg> <strong>warning!</strong>{{ message }}
+
+                            <button type="button" class="close" id="btnalert" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-success d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="15" height="15" role="img" aria-label="Success:">
+                                <use xlink:href="#check-circle-fill" />
+                            </svg> <strong>Success!</strong>{{ message }}
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true" id="btnalert">&times;</span>
+                            </button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- Alert section end-->
+                
+                <div class="box-inn-sp">
+                    <div class="inn-title">
+                        <h4>Uploaded Blog of : {{objstudent.Student_Name}}</h4>
+                    </div>
+                    <div class="tab-inn">
+                        <div class="table-responsive table-desi">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Blog Name</th>
+                                        <th>Blog Date</th>
+                                        <th>Status</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if obj_student_blog|length > 0 %}
+                                    {% for item in obj_student_blog %}
+                                    <tr>
+                                        {% if item.Blog_Banner %}
+                                        <td><span class="list-img"><img src="{{item.Blog_Banner.url}}" alt=""></span>
+                                        </td>
+                                        {% else %}
+                                        <!-- <td class="profileImg">{{item.Blog_Title|slice:"0:1"}}</td> -->
+                                        {% endif %}                                    
+                                        <td><a href="{% url 'admin_student_blog_details' item.pk %}"><span
+                                                    class="list-enq-name">{{item.Blog_Title}}</span></a>
+                                        </td>
+                                        <td>{{item.Blog_DateTime}}</td>
+                                        {% if item.Blog_Status == "Active" %}
+                                        <td>
+                                            <span class="label label-success">{{item.Blog_Status}}</span>
+                                        </td>
+                                        {% elif item.Blog_Status == "Hold" %}
+                                        <td>
+                                            <span class="label label-warning">{{item.Blog_Status}}</span>
+                                        </td>
+
+                                        {% else %}
+                                        <td>
+                                            <span class="label label-danger">{{item.Blog_Status}}</span>
+                                        </td>
+                                        {% endif %}
+                                        <td><a href="{% url 'admin_student_blog_details' item.pk %}"
+                                                class="ad-st-view">View</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <td><b>No record found !</b></td>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
